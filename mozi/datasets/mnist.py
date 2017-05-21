@@ -36,10 +36,10 @@ class Mnist(SingleBlock):
         train_y_tmp = np.zeros((train_X.shape[0], 10), dtype=theano.config.floatX)
         test_y_tmp = np.zeros((test_X.shape[0], 10), dtype=theano.config.floatX)
 
-        for i in xrange(train_X.shape[0]):
+        for i in range(train_X.shape[0]):
             train_y_tmp[i, train_y[i]] = 1
 
-        for i in xrange(test_X.shape[0]):
+        for i in range(test_X.shape[0]):
             test_y_tmp[i, test_y[i]] = 1
 
         train_y = train_y_tmp

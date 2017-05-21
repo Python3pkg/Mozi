@@ -31,9 +31,9 @@ def setenv():
     if not os.getenv('MOZI_SAVE_PATH'):
         os.environ['MOZI_SAVE_PATH'] = NNdir + '/save'
 
-    print('MOZI_DATA_PATH = ' + os.environ['MOZI_DATA_PATH'])
-    print('MOZI_SAVE_PATH = ' + os.environ['MOZI_SAVE_PATH'])
-    print('MOZI_DATABASE_PATH = ' + os.environ['MOZI_DATABASE_PATH'])
+    print(('MOZI_DATA_PATH = ' + os.environ['MOZI_DATA_PATH']))
+    print(('MOZI_SAVE_PATH = ' + os.environ['MOZI_SAVE_PATH']))
+    print(('MOZI_DATABASE_PATH = ' + os.environ['MOZI_DATABASE_PATH']))
 
 
 def train():
@@ -97,7 +97,7 @@ def train():
             ypred = np.argmax(ypred, axis=1)
             y = np.argmax(np.load(yin), axis=1)
             accuracy = np.equal(ypred, y).astype('f4').sum() / len(y)
-            print 'combined accuracy for blk %s:'%X_path, accuracy
+            print('combined accuracy for blk %s:'%X_path, accuracy)
 
 
 if __name__ == '__main__':

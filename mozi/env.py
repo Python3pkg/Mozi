@@ -16,6 +16,6 @@ def setenv():
     if not os.getenv('MOZI_SAVE_PATH'):
         os.environ['MOZI_SAVE_PATH'] = NNdir + '/save'
 
-    print('MOZI_DATA_PATH = ' + os.environ['MOZI_DATA_PATH'])
-    print('MOZI_SAVE_PATH = ' + os.environ['MOZI_SAVE_PATH'])
-    print('MOZI_DATABASE_PATH = ' + os.environ['MOZI_DATABASE_PATH'])
+    print(('MOZI_DATA_PATH = ' + os.environ['MOZI_DATA_PATH']))
+    print(('MOZI_SAVE_PATH = ' + os.environ['MOZI_SAVE_PATH']))
+    print(('MOZI_DATABASE_PATH = ' + os.environ['MOZI_DATABASE_PATH']))

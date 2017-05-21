@@ -1,5 +1,5 @@
-from __future__ import absolute_import
-from __future__ import print_function
+
+
 
 import matplotlib
 import theano
@@ -51,7 +51,7 @@ def tile_raster_graphs(dct_reconstruct, orig, ae_reconstruct, tile_shape, tile_s
     if num_examples > tile_shape[0] * tile_shape[1]:
         num_examples = tile_shape[0] * tile_shape[1]
 
-    for i in xrange(0, num_examples):
+    for i in range(0, num_examples):
         plt.subplot(tile_shape[0], tile_shape[1], i+1)
         plt.plot(orig[i][slice[0]:slice[1]], 'b-', label='orig')
         plt.plot(ae_reconstruct[i][slice[0]:slice[1]], 'g-', label='AE reconstruct')
@@ -76,7 +76,7 @@ def make_one_hot(X, onehot_size):
     """
 
     rX = np.zeros((len(X), onehot_size), dtype=theano.config.floatX)
-    for i in xrange(len(X)):
+    for i in range(len(X)):
         rX[i, X[i]] = 1
 
     return rX
@@ -141,11 +141,11 @@ def make_tuple(*args):
 
 def gpu_to_cpu_model(model):
     for layer in model.layers:
-        for member, value in layer.__dict__.items():
+        for member, value in list(layer.__dict__.items()):
             if is_shared_var(value):
                 layer.__dict__[member] = T._shared(np.array(value.get_value(), floatX),
                                           name=value.name, borrow=False)
-        for i in xrange(len(layer.params)):
+        for i in range(len(layer.params)):
             if is_shared_var(layer.params[i]):
                 layer.params[i] = T._shared(np.array(layer.params[i].get_value(), floatX),
                                           name=layer.params[i].name, borrow=False)

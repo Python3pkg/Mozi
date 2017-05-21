@@ -27,7 +27,7 @@ def get_mnist_file(fpath, origin):
     try:
         f = open(fpath)
     except:
-        print('Downloading data from',  origin)
+        print(('Downloading data from',  origin))
 
         global progbar
         progbar = None
@@ -58,7 +58,7 @@ class open_if_filename(object):
         self._handle = None
 
     def __enter__(self):
-        if isinstance(self._f, basestring):
+        if isinstance(self._f, str):
             self._handle = open(self._f, self._mode, self._buffering)
         else:
             self._handle = self._f

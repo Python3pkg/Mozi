@@ -70,7 +70,7 @@ def train():
     ypred = np.argmax(ypred, axis=1)
     y = np.argmax(data.get_test().y, axis=1)
     accuracy = np.equal(ypred, y).astype('f4').sum() / len(y)
-    print 'test accuracy:', accuracy
+    print('test accuracy:', accuracy)
 
 
 if __name__ == '__main__':

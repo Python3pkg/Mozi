@@ -231,9 +231,9 @@ class GCN(Preprocessor):
             rval = X * self.normalizers[:, np.newaxis]
             return rval
         except AttributeError:
-            print 'apply() needs to be used before invert()'
+            print('apply() needs to be used before invert()')
         except:
-            print "Unexpected error:", sys.exc_info()[0]
+            print("Unexpected error:", sys.exc_info()[0])
 
 
 class GCN_IMG(GCN):
@@ -595,7 +595,7 @@ class ZCA(Preprocessor):
             np.savez(self.matrices_save_path, **matrices)
 
             # Removes the matrices from the dictionary to be pickled.
-            for key, matrix in matrices.items():
+            for key, matrix in list(matrices.items()):
                 del result[key]
 
         return result
@@ -619,7 +619,7 @@ class ZCA(Preprocessor):
 
             # puts matrices' items into state, overriding any colliding keys in
             # state.
-            state = dict(state.items() + matrices.items())
+            state = dict(list(state.items()) + list(matrices.items()))
             del matrices
 
         self.__dict__.update(state)

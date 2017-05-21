@@ -2,7 +2,7 @@
 import logging
 logger = logging.getLogger(__name__)
 import os
-import cPickle
+import pickle
 import numpy as np
 import theano
 floatX = theano.config.floatX

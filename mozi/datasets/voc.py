@@ -7,7 +7,7 @@ import os
 import glob
 from skimage.transform import resize
 from skimage.io import imread
-import cPickle
+import pickle
 import marshal
 import numpy as np
 
@@ -27,7 +27,7 @@ class VOC(SingleBlock):
         X_path = os.environ['MOZI_DATA_PATH'] + '/voc/X.npy'
         y_path = os.environ['MOZI_DATA_PATH'] + '/voc/y.npy'
         if not os.path.exists(X_path) or not os.path.exists(y_path):
-            print X_path + ' does not exists, generating..'
+            print(X_path + ' does not exists, generating..')
             annote = im_dir + '/VOC2012/Annotations'
             images = im_dir + '/VOC2012/JPEGImages'
             files = glob.glob(annote + '/2012*xml')
@@ -47,7 +47,7 @@ class VOC(SingleBlock):
                         # only restrict to one action per photo
                         break
 
-            print 'saving data'
+            print('saving data')
             with open(X_path, 'wb') as Xout, open(y_path, 'wb') as yout:
                 X = np.asarray(rimage)
                 y = np.asarray(labels)
@@ -55,7 +55,7 @@ class VOC(SingleBlock):
                 np.save(yout, y)
 
         else:
-            print X_path + ' exists, loading..'
+            print(X_path + ' exists, loading..')
             with open(X_path, 'rb') as Xin, open(y_path, 'rb') as yin:
                 X = np.load(Xin)
                 y = np.load(yin)

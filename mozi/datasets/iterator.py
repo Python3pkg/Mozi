@@ -18,7 +18,7 @@ class SubsetIterator(object):
         self.rng = rng
         self.idx = 0
 
-    def next(self):
+    def __next__(self):
         raise NotImplementedError()
 
     def __iter__(self):
@@ -74,7 +74,7 @@ class SequentialSubsetIterator(SubsetIterator):
         self.indices = np.arange(self.dataset_size)
 
 
-    def next(self):
+    def __next__(self):
         if self.batch >= self.num_batches or self.idx >= self.dataset_size:
             raise StopIteration()
 
@@ -124,7 +124,7 @@ class ShuffledSequentialSubsetIterator(SequentialSubsetIterator):
         self.shuffled = numpy.arange(self.dataset_size)
         self.rng.shuffle(self.shuffled)
 
-    def next(self):
+    def __next__(self):
         if self.batch >= self.num_batches or self.idx >= self.dataset_size:
             raise StopIteration()
 
@@ -152,7 +152,7 @@ class SequentialContinuousIterator(SubsetIterator):
         self.step_size = step_size
         assert self.step_size > 0
 
-    def next(self):
+    def __next__(self):
         if self.idx + self.batch_size > self.dataset_size:
             raise StopIteration()
 
@@ -176,7 +176,7 @@ class SequentialRecurrentIterator(SubsetIterator):
     def __iter__(self):
         self.ridx = np.concatenate([np.arange(self.seq_len) + i for i in range(batch_size)])
 
-    def next(self):
+    def __next__(self):
         if self.ridx[-1] >= self.dataset_size:
             last = self.ridx[-1] - self.dataset_size + 1
             if len(self.ridx[:-last*self.seq_len]) == 0:

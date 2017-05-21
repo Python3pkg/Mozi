@@ -1,5 +1,5 @@
-from __future__ import absolute_import
-from __future__ import print_function
+
+
 
 import matplotlib
 import theano
@@ -45,7 +45,7 @@ def generate_shared_list(ls):
     """
     rlist = []
 
-    for i in xrange(len(ls)):
+    for i in range(len(ls)):
         rlist.append(theano.shared(np.array(0., dtype=theano.config.floatX)))
 
     return rlist

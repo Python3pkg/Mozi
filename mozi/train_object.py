@@ -129,11 +129,11 @@ class TrainObject():
 
     def run(self):
 
-        best_valid_error = float(sys.maxint)
-        valid_error = float(sys.maxint)
+        best_valid_error = float(sys.maxsize)
+        valid_error = float(sys.maxsize)
 
-        train_cost = float(sys.maxint)
-        valid_cost = float(sys.maxint)
+        train_cost = float(sys.maxsize)
+        valid_cost = float(sys.maxsize)
 
         train_stats_values = []
         valid_stats_values = []
@@ -141,7 +141,7 @@ class TrainObject():
         epoch = 0
         error_dcr = 0
         self.best_epoch_last_update = 0
-        self.best_valid_last_update = float(sys.maxint)
+        self.best_valid_last_update = float(sys.maxsize)
 
         train_stats_names = ['train_' + name for name in self.train_stats_names]
         valid_stats_names = ['valid_' + name for name in self.test_stats_names]
@@ -192,7 +192,7 @@ class TrainObject():
                         train_stats_values += len(idx) * get_shared_values(self.train_stats_shared)
                         blk_sz += len(idx)
                         progbar.update(blk_sz)
-                    print
+                    print()
 
                 #===================[ Validating Progress ]===================#
                 if valid_set.dataset_size > 0:
@@ -210,7 +210,7 @@ class TrainObject():
                         valid_stats_values += len(idx) * get_shared_values(self.test_stats_shared)
                         blk_sz += len(idx)
                         progbar.update(blk_sz)
-                    print
+                    print()
 
                 self.log.info('block time: %0.2fs'%(time.time()-block_time))
                 self.log.info(get_mem_usage())
@@ -256,10 +256,10 @@ class TrainObject():
 
             outputs = [('epoch', epoch),
                         ('runtime(s)', int(end_time-start_time)),
-                        ('train_' + self.train_cost.func_name, train_cost),
-                        ('valid_' + self.train_cost.func_name, valid_cost),
-                        ('valid_' + self.valid_cost.func_name, valid_error),
-                        ('best_valid_' + self.valid_cost.func_name, best_valid_error)]
+                        ('train_' + self.train_cost.__name__, train_cost),
+                        ('valid_' + self.train_cost.__name__, valid_cost),
+                        ('valid_' + self.valid_cost.__name__, valid_error),
+                        ('best_valid_' + self.valid_cost.__name__, best_valid_error)]
 
             outputs += merged_train + merged_valid
             self.log._log_outputs(outputs)

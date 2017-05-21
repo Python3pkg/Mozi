@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import sys
 import logging
-import cPickle
+import pickle
 import sqlite3
 import operator
 import copy
@@ -72,7 +72,7 @@ class Log:
         self.logger.info(msg)
 
     def print_records(self):
-        sorted_ls = sorted(self.save_to_database['records'].iteritems(),
+        sorted_ls = sorted(iter(self.save_to_database['records'].items()),
                              key=operator.itemgetter(0))
         for key, value in sorted_ls:
             self.info(key + ': ' + str(value))
@@ -90,7 +90,7 @@ class Log:
 
     def _save_model(self, model):
         with open(self.exp_dir+'/model.pkl', 'wb') as pkl_file:
-            cPickle.dump(model, pkl_file)
+            pickle.dump(model, pkl_file)
 
     def _save_epoch_error(self, epoch, train_cost, valid_cost, valid_error):
         with open(self.epoch_error_path, 'ab') as epoch_file:
@@ -104,7 +104,7 @@ class Log:
             query = 'CREATE TABLE IF NOT EXISTS ' + self.experiment_name + \
                     '(exp_id TEXT PRIMARY KEY NOT NULL,'
 
-            for k,v in self.save_to_database['records'].items():
+            for k,v in list(self.save_to_database['records'].items()):
                 if type(v) is str:
                     query += k + ' TEXT,'
                 elif type(v) is int:
@@ -126,7 +126,7 @@ class Log:
             try:
                 query = 'INSERT INTO ' + self.experiment_name + ' VALUES('
                 ls = [self.exp_id]
-                for k, v in self.save_to_database['records'].items():
+                for k, v in list(self.save_to_database['records'].items()):
                     query += '?,'
                     ls.append(v)
                 query += '?,?,?,?,?);'

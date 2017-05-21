@@ -1,7 +1,7 @@
 import logging
 logger = logging.getLogger(__name__)
 import os
-import cPickle
+import pickle
 import numpy as np
 import theano
 floatX = theano.config.floatX
@@ -31,7 +31,7 @@ class Cifar100(SingleBlock):
         for fname in fnames:
             data_path = "{}/{}".format(im_dir, fname)
             with open(data_path) as fin:
-                data_batch = cPickle.load(fin)
+                data_batch = pickle.load(fin)
                 if flatten:
                     X.extend(data_batch['data'].reshape((len(data_batch['data']), self.img_size)))
                 else:

@@ -88,7 +88,7 @@ class Dataset(object):
     def __iter__(self):
         raise NotImplementedError(str(type(self))+" does not implement the __iter__ method.")
 
-    def next(self):
+    def __next__(self):
         raise NotImplementedError(str(type(self))+" does not implement the next method.")
 
     @property
@@ -117,7 +117,7 @@ class SingleBlock(Dataset):
         self.iter = True
         return self
 
-    def next(self):
+    def __next__(self):
         if self.iter:
             # only one iteration since there is only one data block
             self.iter = False
@@ -215,7 +215,7 @@ class DataBlocks(Dataset):
             self.load_Xy(bufile, self.q)
         return self
 
-    def next(self):
+    def __next__(self):
         if self.allow_preload:
             if self.lastblock:
                 raise StopIteration

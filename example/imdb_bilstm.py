@@ -17,7 +17,7 @@ from mozi.train_object import TrainObject
 from mozi.cost import mse, error
 import theano.tensor as T
 
-import cPickle
+import pickle
 import sys
 
 '''
